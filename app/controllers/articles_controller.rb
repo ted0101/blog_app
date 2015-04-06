@@ -1,6 +1,12 @@
 class ArticlesController < ApplicationController
 	def index
 		@articles=Article.all
+		if params[:title].present?
+			@articles=@articles.where("title like ?","%#{params[:title]}%")
+		end
+		if params[:content].present?
+			@articles=@articles.where("content like ?","%#{params[:content]}%")	
+		end
 	end
 	def show
 		@article = Article.find(params[:id])
